@@ -14,15 +14,20 @@
     margin: 0;
     color: #fff;
   }
+}
 
-  &__explore {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 500;
+.filter-button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
 
-    &:hover {
-      text-decoration: underline;
-    }
+  &:hover {
+    background-color: #444;
   }
 }
 
@@ -126,8 +131,17 @@
   &__name {
     font-size: 1rem;
     font-weight: 500;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.25rem 0;
     color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__genres {
+    font-size: 0.8rem;
+    color: #ccc;
+    margin: 0 0 0.5rem 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

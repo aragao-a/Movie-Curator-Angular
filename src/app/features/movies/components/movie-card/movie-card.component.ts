@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core'; 
 import { Movie } from '../../types/movie.type';
 import { CommonModule } from '@angular/common';
 
@@ -11,8 +11,13 @@ import { CommonModule } from '@angular/common';
 })
 export class MovieCardComponent {
   @Input() movie!: Movie;
+  @Output() addMovie = new EventEmitter<Movie>(); 
 
   getPosterUrl(posterPath: string): string {
     return `https://image.tmdb.org/t/p/w500${posterPath}`;
+  }
+
+  onAddMovie(): void {
+    this.addMovie.emit(this.movie);
   }
 }

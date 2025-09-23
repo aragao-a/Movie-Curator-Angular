@@ -42,3 +42,7 @@ testem.log
 Thumbs.db
 
 .env
+
+src/environments/env-pra-uso.ts
+
+src/app/checklist.md

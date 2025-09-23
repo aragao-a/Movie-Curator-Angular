@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Movie } from '../types/movie.type';
+import { Movie, Genre } from '../types/movie.type';
 
 export interface MovieState {
-  movies: Movie[];
+  popularMovies: Movie[];
+  topRatedMovies: Movie[];
+  upcomingMovies: Movie[];
+  searchResults: Movie[];
   loading: boolean;
   error: string | null;
   page: number;
   totalPages: number;
+  genres: Genre[];
   _internal?: unknown;
 }
 
 const initialState: MovieState = {
-  movies: [],
+  popularMovies: [],
+  topRatedMovies: [],
+  upcomingMovies: [],
+  searchResults: [],
   loading: false,
   error: null,
   page: 1,
   totalPages: 1,
+  genres: [],
   _internal: undefined
 };
 
@@ -34,10 +42,6 @@ export class MovieStateService {
 
   setState(newState: Partial<MovieState>) {
     this.state.next({ ...this.getState(), ...newState });
-  }
-
-  setMovies(movies: Movie[]) {
-    this.setState({ movies });
   }
 
   setLoading(loading: boolean) {

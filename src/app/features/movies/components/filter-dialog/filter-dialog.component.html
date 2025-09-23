@@ -1,0 +1,20 @@
+
+<app-base-dialog [cardTitle]="'Filtrar por Gênero'">
+  <ng-container card-body>
+    <div class="genre-list">
+      @for(genre of genres; track genre.id) {
+        <button 
+          class="genre-button"
+          [class.active]="genre.id === selectedGenreId"
+          (click)="onSelectGenre(genre.id)">
+          {{ genre.name }}
+        </button>
+      }
+    </div>
+  </ng-container>
+
+  <ng-container card-footer>
+    <button class="button button-secondary" (click)="close()">Cancelar</button>
+    <button class="button button-primary" (click)="onApply()">Aplicar</button>
+  </ng-container>
+</app-base-dialog>

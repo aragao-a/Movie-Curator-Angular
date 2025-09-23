@@ -1,5 +1,8 @@
-import { Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { Genre } from 'src/app/features/movies/types/movie.type';
+import { FilterDialogComponent } from 'src/app/features/movies/components/filter-dialog/filter-dialog.component';
 
 export interface CarouselItem {
   id: number;
@@ -10,6 +13,7 @@ export interface CarouselItem {
   rating?: number;
   vote?: number;
   character?: string;
+  genres?: string;
 }
 
 @Component({
@@ -17,11 +21,13 @@ export interface CarouselItem {
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, FilterDialogComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent implements AfterViewInit {
   @Input() title!: string;
   @Input() items: CarouselItem[] = [];
+  @Input() genres: Genre[] = [];
   @Input() isExplore = false;
   @Input() exploreLink = '';
   @Input() canNavigateLeft = false;
@@ -31,11 +37,21 @@ export class CarouselComponent implements AfterViewInit {
 
   @Output() prevSlideEvent = new EventEmitter<void>();
   @Output() nextSlideEvent = new EventEmitter<void>();
+  @Output() filterApplied = new EventEmitter<number | null>();
 
+  @ViewChild(FilterDialogComponent) filterDialog!: FilterDialogComponent;
   @ViewChild('carouselContainer', { static: false }) carouselContainer!: ElementRef;
 
   ngAfterViewInit() {
     this.updateNavigation();
+  }
+
+  openFilterDialog() {
+    this.filterDialog.open();
+  }
+
+  handleFilterApplied(genreId: number | null) {
+    this.filterApplied.emit(genreId);
   }
 
   prevSlide() {
@@ -57,7 +73,7 @@ export class CarouselComponent implements AfterViewInit {
   private updateNavigation() {
     const container = this.carouselContainer.nativeElement;
     this.canNavigateLeft = container.scrollLeft > 0;
-    this.canNavigateRight = container.scrollLeft < container.scrollWidth - container.clientWidth;
+    this.canNavigateRight = container.scrollLeft < container.clientWidth + container.scrollLeft;
   }
 
   getPosterUrl(imgSrc: string): string {

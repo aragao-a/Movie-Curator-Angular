@@ -1,28 +1,33 @@
 <div class="movie-list-container">
-  <app-carousel
-    [titles]="'Popular Movies'"
-    [items]="popularMovies"
-    [isExplore]="false"
-    [exploreLink]="'/movies/popular'"
-    [canNavigateLeft]="true"
-    [canNavigateRight]="true">
-  </app-carousel>
+  <div class="search-bar">
+    <input
+      class="search-input"
+      [formControl]="searchControl"
+      placeholder="Buscar por nome do filme..."
+    />
+  </div>
 
-  <app-carousel
-    [titles]="'Top Rated Movies'"
-    [items]="topRatedMovies"
-    [isExplore]="false"
-    [exploreLink]="'/movies/top-rated'"
-    [canNavigateLeft]="true"
-    [canNavigateRight]="true">
-  </app-carousel>
+  <ng-container *ngIf="searchResults$ | async as searchResults">
+    <div *ngIf="searchResults.length > 0; else carousels" class="movie-grid">
+      <h2>Resultados da Busca</h2>
+      <app-movie-card *ngFor="let movie of searchResults" [movie]="movie"></app-movie-card>
+    </div>
 
-  <app-carousel
-    [titles]="'Upcoming Movies'"
-    [items]="upcomingMovies"
-    [isExplore]="false"
-    [exploreLink]="'/movies/upcoming'"
-    [canNavigateLeft]="true"
-    [canNavigateRight]="true">
-  </app-carousel>
+    <ng-template #carousels>
+      <app-carousel
+        [title]="'Filmes Populares'"
+        [items]="(facade.popularMovies$ | async)!"
+      ></app-carousel>
+      
+      <app-carousel
+        [title]="'Mais Votados'"
+        [items]="(facade.topRatedMovies$ | async)!"
+      ></app-carousel>
+
+      <app-carousel
+        [title]="'Em Breve'"
+        [items]="(facade.upcomingMovies$ | async)!"
+      ></app-carousel>
+    </ng-template>
+  </ng-container>
 </div>

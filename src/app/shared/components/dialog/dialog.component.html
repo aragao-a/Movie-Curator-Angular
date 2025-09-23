@@ -1,0 +1,34 @@
+
+@if (isVisible) {
+
+  <div class="dialog-container" (click)="close()">
+
+    <div class="dialog-card" (click)="onDialogClick($event)">
+      <div class="card-structure">
+
+        @if (cardTitle) {
+          <header class="card-header">
+            <div class="card-header-icon">
+              <ng-content select="[card-header-icon]"></ng-content>
+            </div>
+            
+            <h2>{{ cardTitle }}</h2>
+            
+            <aside class="card-accessories">
+              <ng-content select="[card-accessories]"></ng-content>
+            </aside>
+          </header>
+        }
+        
+        <section class="card-body">
+          <ng-content select="[card-body]"></ng-content>
+        </section>
+        
+        <footer class="card-footer">
+          <ng-content select="[card-footer]"></ng-content>
+        </footer>
+      </div>
+    </div>
+
+  </div>
+}

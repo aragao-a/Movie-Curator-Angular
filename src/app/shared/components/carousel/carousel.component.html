@@ -1,9 +1,7 @@
 <div class="listing listing--carousel">
   <div class="listing__head">
     <h2 class="listing__title">{{ title }}</h2>
-    <a *ngIf="isDefaultCarousel && !isExplore" [routerLink]="[exploreLink]" class="listing__explore">
-      <strong>Explore All</strong>
-    </a>
+    <button class="filter-button" (click)="openFilterDialog()">Filtros</button>
   </div>
   <div class="carousel">
     <button aria-label="Previous" type="button" [disabled]="!canNavigateLeft" (click)="prevSlide()" class="carousel__nav carousel__nav--left">
@@ -27,11 +25,10 @@
                 </span>
               }
             </div>
-
-            <!-- Default Carousel -->
             @if (isDefaultCarousel) {
               <div>
                 <h2 class="card__name">{{ item.title }}</h2>
+                <p class="card__genres">{{ item.genres }}</p>
                 <div class="card__rating">
                   <div class="card__stars">
                     <div [style.width.%]="item.rating"></div>
@@ -40,24 +37,12 @@
                 </div>
               </div>
             }
-
-            <!-- Cast Carousel -->
             @if (isCastCarousel) {
               <div>
                 <h2 class="credits-item__name">{{ item.name }}</h2>
                 <h2 class="credits-item__character">{{ item.character }}</h2>
               </div>
             }
-          </a>
-        </div>
-      }
-
-      @if (isExplore) {
-        <div class="card">
-          <a [routerLink]="[exploreLink]" class="card__link">
-            <div class="card__img">
-              <span>Explore All</span>
-            </div>
           </a>
         </div>
       }
@@ -70,3 +55,4 @@
     </button>
   </div>
 </div>
+<app-filter-dialog [genres]="genres" (applyFilter)="handleFilterApplied($event)"></app-filter-dialog>
