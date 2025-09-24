@@ -2,11 +2,11 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MovieFacade } from '../../services/movie.facade';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap, map} from 'rxjs/operators';
 import { CarouselComponent } from '@shared/components/carousel/carousel.component';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { Observable } from 'rxjs';
-import { Movie } from '../../types/movie.type';
+import { Movie, Genre } from '../../types/movie.type';
 
 @Component({
   selector: 'app-movie-list',
@@ -27,6 +27,8 @@ export class MovieListComponent implements OnInit {
 
   searchResults$: Observable<Movie[]> = this.facade.searchResults$;
 
+  genres$: Observable<Genre[]> = this.facade.state.movies$.pipe(map(state => state.genres));
+  
   ngOnInit() {
 
     this.facade.loadGenres(); 

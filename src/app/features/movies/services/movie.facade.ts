@@ -11,7 +11,7 @@ import { CarouselItem } from '@shared/components/carousel/carousel.component';
 })
 export class MovieFacade {
   private api = inject(MovieApiService);
-  private state = inject(MovieStateService);
+  public state = inject(MovieStateService);
   private genres$ = this.state.movies$.pipe(map(state => state.genres));
 
   popularMovies$ = combineLatest([
@@ -93,7 +93,10 @@ export class MovieFacade {
         link: `/movie/${movie.id}`,
         rating: movie.vote_average * 10,
         vote: movie.vote_average,
-        genres: movieGenres 
+        genres: movieGenres,
+        genre_ids: movie.genre_ids, 
+        release_date: movie.release_date,
+        popularity: movie.popularity
       };
     });
   }

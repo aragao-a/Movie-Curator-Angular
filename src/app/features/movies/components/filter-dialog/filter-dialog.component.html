@@ -1,20 +1,45 @@
-
-<app-base-dialog [cardTitle]="'Filtrar por Gênero'">
+<app-base-dialog [cardTitle]="'Filtros'">
   <ng-container card-body>
-    <div class="genre-list">
-      @for(genre of genres; track genre.id) {
-        <button 
-          class="genre-button"
-          [class.active]="genre.id === selectedGenreId"
-          (click)="onSelectGenre(genre.id)">
-          {{ genre.name }}
-        </button>
-      }
+    <div class="filter-grid">
+
+      <div class="filter-group">
+        <label for="filter-name">Nome do Filme</label>
+        <input 
+          id="filter-name" 
+          type="text" 
+          class="filter-input" 
+          placeholder="Digite um nome..."
+          [(ngModel)]="selectedName">
+      </div>
+
+      <div class="filter-group">
+        <label for="filter-genre">Gênero</label>
+        <select id="filter-genre" class="filter-select" [(ngModel)]="selectedGenreId">
+          <option [ngValue]="null">Todos os Gêneros</option>
+          <option *ngFor="let genre of genres" [ngValue]="genre.id">
+            {{ genre.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filter-year">Ano de Lançamento</label>
+        <select id="filter-year" class="filter-select" [(ngModel)]="selectedYear">
+          <option [ngValue]="null">Todos os Anos</option>
+          <option *ngFor="let year of years" [ngValue]="year">
+            {{ year }}
+          </option>
+        </select>
+      </div>
     </div>
   </ng-container>
 
   <ng-container card-footer>
-    <button class="button button-secondary" (click)="close()">Cancelar</button>
-    <button class="button button-primary" (click)="onApply()">Aplicar</button>
+    <button class="button button-secondary" (click)="clear()">Limpar</button>
+    <div>
+      <button class="button button-secondary" (click)="close()">Cancelar</button>
+      <button class="button button-primary" (click)="onApply()">Aplicar</button>
+    </div>
   </ng-container>
 </app-base-dialog>
+

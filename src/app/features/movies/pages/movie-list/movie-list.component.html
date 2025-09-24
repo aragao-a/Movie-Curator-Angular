@@ -17,16 +17,19 @@
       <app-carousel
         [title]="'Filmes Populares'"
         [items]="(facade.popularMovies$ | async)!"
+        [genres]="(genres$ | async)!"
       ></app-carousel>
       
       <app-carousel
         [title]="'Mais Votados'"
         [items]="(facade.topRatedMovies$ | async)!"
+        [genres]="(genres$ | async)!"
       ></app-carousel>
 
       <app-carousel
         [title]="'Em Breve'"
         [items]="(facade.upcomingMovies$ | async)!"
+        [genres]="(genres$ | async)!"
       ></app-carousel>
     </ng-template>
   </ng-container>

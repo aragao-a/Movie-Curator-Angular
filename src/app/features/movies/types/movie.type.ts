@@ -12,6 +12,7 @@ export interface Movie {
   release_date: string;
   vote_average: number;
   genre_ids: number[];
+  popularity: number;
 }
 
 export interface MovieResponse {
