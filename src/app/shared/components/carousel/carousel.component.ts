@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject, ChangeDetectorRef, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Genre } from 'src/app/features/movies/types/movie.type';
 import { FilterDialogComponent, FilterValues } from 'src/app/features/movies/components/filter-dialog/filter-dialog.component';
+import { ButtonComponent } from '../button/button.component';
 
 export interface CarouselItem {
   id: number;
@@ -24,7 +25,12 @@ export interface CarouselItem {
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule, FilterDialogComponent],
+  imports: [
+    CommonModule, 
+    RouterModule, 
+    FilterDialogComponent,
+    ButtonComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent implements AfterViewInit, OnChanges {
@@ -39,6 +45,8 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
   
   @ViewChild(FilterDialogComponent) filterDialog!: FilterDialogComponent;
   @ViewChild('carouselContainer') carouselContainer!: ElementRef<HTMLElement>;
+
+  private cdr = inject(ChangeDetectorRef);
 
   displayedItems: CarouselItem[] = [];
   isFiltered = false;
@@ -141,7 +149,8 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
     });
 
     this.displayedItems = itemsToProcess;
-    this.isFiltered = !!this.currentFilters;
+    this.isFiltered = !!this.currentFilters && (!!this.currentFilters.name || !!this.currentFilters.genreId || !!this.currentFilters.year);
+    this.cdr.markForCheck();
   }
 
   prevSlide() {

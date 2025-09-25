@@ -35,11 +35,10 @@
   </ng-container>
 
   <ng-container card-footer>
-    <button class="button button-secondary" (click)="clear()">Limpar</button>
-    <div>
-      <button class="button button-secondary" (click)="close()">Cancelar</button>
-      <button class="button button-primary" (click)="onApply()">Aplicar</button>
-    </div>
+
+    <app-button appearance="secondary" (click)="close()">Cancelar</app-button>
+    <app-button appearance="primary" (click)="onApply()">Aplicar</app-button>
+
   </ng-container>
 </app-base-dialog>
 

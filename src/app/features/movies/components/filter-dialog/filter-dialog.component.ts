@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Genre } from '../../types/movie.type';
 import { FormsModule } from '@angular/forms';
 import { BaseDialogComponent } from '@shared/components/dialog/dialog.component';
-
+import { ButtonComponent } from '@shared/components/button/button.component';
 export interface FilterValues {
   name: string | null;
   genreId: number | null;
@@ -13,7 +13,12 @@ export interface FilterValues {
 @Component({
   selector: 'app-filter-dialog',
   standalone: true,
-  imports: [CommonModule, BaseDialogComponent, FormsModule],
+  imports: [
+    CommonModule, 
+    BaseDialogComponent, 
+    FormsModule,
+    ButtonComponent
+  ],
   templateUrl: './filter-dialog.component.html',
   styleUrls: ['./filter-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -1,0 +1,11 @@
+
+<button [ngClass]="{
+  'btn': true,
+  'btn-primary': appearance === 'primary',
+  'btn-secondary': appearance === 'secondary',
+  'btn-tertiary': appearance === 'tertiary',
+  'btn-fortiary': appearance === 'fortiary'
+}">
+
+  <ng-content></ng-content>
+</button>

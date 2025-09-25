@@ -1,6 +1,82 @@
 /* You can add global styles to this file, and also import other style files */
 
-body {
+body, input, button, select{
   background: #0f0f0f;
   margin: 0;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 300; 
+  letter-spacing: 0.02rem;
+}
+
+p {
+
+  font-family: Manrope;
+  font-weight: 100;
+  letter-spacing: 0.06rem;
+}
+
+h2 {
+  font-family: Manrope;
+  font-weight: 900;
+
+}
+
+:root {
+
+  --cinelog-o0: #ff6b6b;
+  --cinelog-o1: #662b2b;
+  --cinelog-b0: #526ed3;
+  --cinelog-b1: #6c86e2;
+  --zophia-p2: #5D5A8C;
+  --zophia-blue: #9CB3F4;
+  --zophia-pi2: #5D5ACC;
+
+}
+
+@font-face {
+  
+  font-family: 'Inter';
+  src: url('/assets/fonts/Inter-Bold.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  
+  font-family: 'Manrope';
+  src: url('/assets/fonts/Manrope-ExtraBold.otf') format('opentype');
+  font-weight: 1000;
+  font-style: normal;
+}
+
+@font-face {
+  
+  font-family: 'Manrope';
+  src: url('/assets/fonts/Manrope-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  
+  font-family: 'Manrope';
+  src: url('/assets/fonts/Manrope-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  
+  font-family: 'Manrope';
+  src: url('/assets/fonts/Manrope-Light.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  
+  font-family: 'Manrope';
+  src: url('/assets/fonts/Manrope-Thin.otf') format('opentype');
+  font-weight: 100;
+  font-style: normal;
 }

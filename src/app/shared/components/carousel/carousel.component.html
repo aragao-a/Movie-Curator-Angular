@@ -1,15 +1,33 @@
 <div class="listing listing--carousel">
 
   <div class="listing__head">
+
     <h2 class="listing__title">{{ title }}</h2>
+
     <div class="listing__actions">
+
       <select class="sort-select" (change)="onSortChange($event)">
         <option value="popularity">Mais Populares</option>
         <option value="vote">Melhor Nota</option>
         <option value="release_date">Mais Recentes</option>
         <option value="title">Nome (A-Z)</option>
       </select>
-      <button class="filter-button" (click)="openFilterDialog()">Filtros</button>
+
+      <app-button 
+        appearance="tertiary" 
+        (click)="openFilterDialog()"
+      >
+        Filtros
+      </app-button>
+
+      <app-button
+        *ngIf="isFiltered"
+        appearance="fortiary"
+        (click)="clearFilter()"
+      >
+        <img class="reset-icon" src="assets/vectors/history.svg" alt="Resetar Filtro">
+      </app-button>
+
       <!-- <button *ngIf="isFiltered" class="clear-filter-button" (click)="clearFilter()">Limpar Filtro</button> -->
     </div>
   </div>

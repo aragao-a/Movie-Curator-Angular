@@ -16,6 +16,7 @@
 
   .filter-input,
   .filter-select {
+    cursor: pointer;
     width: 100%;
     padding: 0.8rem;
     font-size: 1rem;
@@ -23,6 +24,7 @@
     border: 1px solid #555;
     background-color: #333;
     color: #fff;
+    box-sizing: border-box;
 
     &:focus {
       outline: none;
