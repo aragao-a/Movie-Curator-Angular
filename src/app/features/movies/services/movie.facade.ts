@@ -82,7 +82,7 @@ export class MovieFacade {
     const currentMovies = this.state.getState()[category];
     const moviesToFetch = currentMovies
       .filter(movie => !movie.runtime)
-      .slice(0, 10);
+      .slice(0, 15);
     
     if (moviesToFetch.length === 0) {
       this.state.setLoading(false);
@@ -123,7 +123,7 @@ export class MovieFacade {
         id: movie.id,
         title: movie.title,
         imgSrc: movie.poster_path,
-        link: `/movie/${movie.id}`,
+        link: `/movies/${movie.id}`,
         rating: movie.vote_average * 10,
         vote: movie.vote_average,
         genres: movieGenres,

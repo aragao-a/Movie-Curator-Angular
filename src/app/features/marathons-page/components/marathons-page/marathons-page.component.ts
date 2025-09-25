@@ -5,6 +5,7 @@ import { CarouselComponent, CarouselItem } from 'src/app/shared/components/carou
 import { SavedMarathon } from '../../types/saved-marathon.type';
 import { DurationPipe } from "../../../../shared/pipes/duration.pipe";
 import { ButtonComponent } from "../../../../shared/components/button/button.component";
+import { MarathonFacadeService } from 'src/app/features/marathon/services/marathon-facade.service';
 
 @Component({
     selector: 'app-marathons-page',
@@ -14,8 +15,14 @@ import { ButtonComponent } from "../../../../shared/components/button/button.com
     imports: [CommonModule, CarouselComponent, DurationPipe, ButtonComponent]
 })
 export class MarathonsPageComponent {
+
+  marathonFacade = inject(MarathonFacadeService);
   private savedMarathonFacade = inject(SavedMarathonFacade);
   savedMarathons$ = this.savedMarathonFacade.savedMarathons$;
+
+  handleAddMovie(movie: CarouselItem) {
+    this.marathonFacade.addMovie(movie);
+  }
 
   mapMoviesToCarouselItems(marathon: SavedMarathon): CarouselItem[] {
     return marathon.movies.map(movie => ({

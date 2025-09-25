@@ -260,3 +260,16 @@
     box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3);
   }
 }
+
+.empty-carousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100px;
+  background-color: #222;
+  border-radius: 8px;
+  border: 2px dashed #444;
+  color: #888;
+  font-family: 'Manrope', sans-serif;
+}

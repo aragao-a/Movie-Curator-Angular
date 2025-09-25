@@ -61,7 +61,8 @@
 
 :host ::ng-deep .card-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 12px;
   align-items: center;
 }
 

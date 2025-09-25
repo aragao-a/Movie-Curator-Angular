@@ -29,6 +29,10 @@ export class MarathonListComponent {
     this.facade.removeMovie(movieId);
   }
 
+  clearMarathon() {
+    this.facade.clearCurrentMarathon();
+  }
+
   handleSaveMarathon(name: string) {
     if (!name) return;
 

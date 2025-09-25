@@ -23,6 +23,7 @@
             <app-carousel
               [title]="'Duração: ' + (marathon.totalDuration | duration)"
               [items]="mapMoviesToCarouselItems(marathon)"
+              (addMovie)="handleAddMovie($event)" 
             ></app-carousel>
           </div>
         }
