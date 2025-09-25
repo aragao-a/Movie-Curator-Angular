@@ -28,7 +28,6 @@
         <img class="reset-icon" src="assets/vectors/history.svg" alt="Resetar Filtro">
       </app-button>
 
-      <!-- <button *ngIf="isFiltered" class="clear-filter-button" (click)="clearFilter()">Limpar Filtro</button> -->
     </div>
   </div>
 
@@ -58,14 +57,28 @@
               <div>
                 <h2 class="card__name">{{ item.title }}</h2>
                 <p class="card__genres">{{ item.genres }}</p>
-                <div class="card__rating">
-                  <div class="card__stars">
-                    <div [style.width.%]="item.rating"></div>
+                
+                <div class="final-line">
+
+                  <div class="card__rating">
+                    <div class="card__stars">
+                      <div [style.width.%]="item.rating"></div>
+                    </div>
+                    <div class="card__vote">{{ item.vote }}</div>
                   </div>
-                  <div class="card__vote">{{ item.vote }}</div>
+
+                  <app-button
+                    appearance="secondary"
+                    (click)="onAddMovieToMarathon(item)"
+                    class="add-to-marathon-btn"
+                  >
+                    <img class="plus-icon" src="assets/vectors/circle-plus.svg" alt="Adicionar à Maratona">
+                  </app-button>
                 </div>
               </div>
             }
+
+
             @if (isCastCarousel) {
               <div>
                 <h2 class="credits-item__name">{{ item.name }}</h2>

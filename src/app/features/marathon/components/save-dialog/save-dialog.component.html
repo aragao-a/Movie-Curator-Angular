@@ -1,0 +1,19 @@
+<app-base-dialog [cardTitle]="'Nomeie sua Maratona'">
+  <ng-container card-body>
+    <div class="save-dialog-body">
+      <label for="marathon-name">Nome da Maratona</label>
+      <input 
+        #marathonNameInput
+        id="marathon-name" 
+        type="text" 
+        class="dialog-input" 
+        placeholder="Ex: Maratona do Oscar 2024"
+        (keyup.enter)="onSave()">
+    </div>
+  </ng-container>
+
+  <ng-container card-footer>
+    <app-button appearance="secondary" (click)="close()">Cancelar</app-button>
+    <app-button appearance="primary" (click)="onSave()">Salvar</app-button>
+  </ng-container>
+</app-base-dialog>

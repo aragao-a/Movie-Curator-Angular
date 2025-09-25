@@ -1,11 +1,12 @@
-
-<button [ngClass]="{
-  'btn': true,
-  'btn-primary': appearance === 'primary',
-  'btn-secondary': appearance === 'secondary',
-  'btn-tertiary': appearance === 'tertiary',
-  'btn-fortiary': appearance === 'fortiary'
-}">
-
+<button 
+  [ngClass]="{
+    'btn': true,
+    'btn-primary': appearance === 'primary',
+    'btn-secondary': appearance === 'secondary',
+    'btn-tertiary': appearance === 'tertiary',
+    'btn-fortiary': appearance === 'fortiary'
+  }"
+  [type]="type"
+>
   <ng-content></ng-content>
 </button>

@@ -1,0 +1,39 @@
+<div class="marathon-list-container">
+  <h3>Maratona Atual</h3>
+
+  @if (movies$ | async; as movies) {
+    @if (movies.length > 0) {
+      <div class="movies-container">
+        @for(movie of movies; track movie.id) {
+          <div class="marathon-item">
+            <div class="movie-info">
+              <h5 class="movie-title">{{ movie.title }}</h5>
+              <p class="movie-director">{{ movie.director }}</p>
+              <span class="movie-runtime">{{ movie.runtime | duration }}</span>
+            </div>
+            <app-button
+              appearance="fortiary"
+              class="remove-btn"
+              (click)="removeMovie(movie.id)"
+            >
+              <img class="trash-button" src="assets/vectors/trash-2.svg" alt="Remover">
+            </app-button>
+          </div>
+        }
+      </div>
+      <div class="total-duration">
+        <span>Duração Total:</span>
+        <strong>{{ (totalDuration$ | async) | duration }}</strong>
+      </div>
+      <app-button appearance="primary" (click)="saveDialog.open()" class="save-button">
+        Salvar Maratona
+      </app-button>
+    } @else {
+      <p class="empty-message">
+        Você ainda não tem filmes para a maratona atual.
+      </p>
+    }
+  }
+</div>
+
+<app-save-dialog #saveDialog (save)="handleSaveMarathon($event)"></app-save-dialog>

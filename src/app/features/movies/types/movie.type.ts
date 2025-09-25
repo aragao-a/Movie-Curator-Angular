@@ -21,3 +21,17 @@ export interface MovieResponse {
   total_pages: number;
   total_results: number;
 }
+
+export interface CrewMember {
+  job: string;
+  name: string;
+}
+
+export interface Credits {
+  crew: CrewMember[];
+}
+
+export interface MovieDetails extends Movie {
+  runtime: number;
+  credits: Credits;
+}

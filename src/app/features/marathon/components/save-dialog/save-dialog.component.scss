@@ -1,0 +1,28 @@
+.save-dialog-body {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #e0e0e0;
+  }
+
+  .dialog-input {
+    cursor: pointer;
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #ff6b6b;
+      box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3);
+    }
+  }
+}

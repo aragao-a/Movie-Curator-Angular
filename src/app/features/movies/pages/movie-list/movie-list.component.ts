@@ -7,6 +7,8 @@ import { CarouselComponent } from '@shared/components/carousel/carousel.componen
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { Observable } from 'rxjs';
 import { Movie, Genre } from '../../types/movie.type';
+import { MarathonFacadeService } from 'src/app/features/marathon/services/marathon-facade.service';
+import { CarouselItem } from '@shared/components/carousel/carousel.component';
 
 @Component({
   selector: 'app-movie-list',
@@ -23,11 +25,16 @@ import { Movie, Genre } from '../../types/movie.type';
 })
 export class MovieListComponent implements OnInit {
   facade = inject(MovieFacade);
+  marathonFacade = inject(MarathonFacadeService);
   searchControl = new FormControl('');
 
   searchResults$: Observable<Movie[]> = this.facade.searchResults$;
 
   genres$: Observable<Genre[]> = this.facade.state.movies$.pipe(map(state => state.genres));
+  
+  handleAddMovie(movie: CarouselItem) {
+    this.marathonFacade.addMovie(movie);
+  }
   
   ngOnInit() {
 

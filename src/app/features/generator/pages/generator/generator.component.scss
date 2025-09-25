@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  padding: 2rem;
+  color: #fff;
+}
+
+.generator-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.generator-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.generator-description {
+  font-size: 1.1rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+.search-form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+
+  .search-input {
+    flex-grow: 1;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #555;
+    background-color: #333;
+    color: #fff;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #ff6b6b;
+      box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3);
+    }
+    
+    &::placeholder {
+      color: #888;
+    }
+  }
+}
+
+.results-section {
+  min-height: 400px; // Evita que o layout "pule" durante o carregamento
+}

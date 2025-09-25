@@ -12,4 +12,5 @@ import { CommonModule } from '@angular/common';
 export class ButtonComponent {
 
   @Input() appearance: 'primary' | 'secondary' | 'tertiary' | 'fortiary' = 'primary';
+  @Input() type: 'button' | 'submit' | 'reset' = 'button';
 }

@@ -1,0 +1,23 @@
+<div class="sidebar-container">
+  <div class="logo-area">
+    <img class="logo-image" src='/assets/vectors/clapperboard (1).svg'>
+    <h1 class="app-title">{{ title }}</h1>
+  </div>
+
+  <nav class="app-nav">
+    <a routerLink="/movies" routerLinkActive="active" class="nav-link">
+      Filmes
+    </a>
+    <a routerLink="/generator" routerLinkActive="active" class="nav-link">
+        Gerador
+    </a>
+    <a routerLink="/marathons" routerLinkActive="active" class="nav-link">
+        Maratonas
+    </a>
+    
+  </nav>
+
+  <div class="marathon-section">
+    <app-marathon-list></app-marathon-list>
+  </div>
+</div>

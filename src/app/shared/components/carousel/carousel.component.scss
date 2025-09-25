@@ -180,6 +180,19 @@
   }
 }
 
+.final-line {
+
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.plus-icon {
+
+  width: 18px;
+}
+
+
 .credits-item {
   &__name {
     font-size: 1rem;

@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectorRef, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Output, EventEmitter, inject, ChangeDetectorRef, AfterViewInit, Input, ViewChild, ElementRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Genre } from 'src/app/features/movies/types/movie.type';
@@ -38,6 +38,8 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
   @Input() items: CarouselItem[] = [];
   @Input() genres: Genre[] = [];
 
+  @Output() addMovie = new EventEmitter<CarouselItem>();
+
   @Input() canNavigateLeft = true;
   @Input() canNavigateRight = true;
   @Input() isDefaultCarousel = true;
@@ -55,7 +57,6 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items']) {
-      // Quando os itens mudam, resetamos e atualizamos a exibição
       this.currentFilters = null;
       this.updateDisplayedItems();
     }
@@ -67,6 +68,10 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   openFilterDialog() {
     this.filterDialog.open();
+  }
+
+  onAddMovieToMarathon(item: CarouselItem) {
+    this.addMovie.emit(item);
   }
 
   handleFilterApplied(filters: FilterValues) {

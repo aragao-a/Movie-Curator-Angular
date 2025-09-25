@@ -1,0 +1,39 @@
+<div class="generator-container">
+  <h1 class="generator-title">Gerador de Filmografia</h1>
+  <p class="generator-description">
+    Digite o nome de um ator, diretor ou qualquer membro da equipe de produção para ver os filmes associados.
+  </p>
+
+  <div class="search-form">
+    <input 
+      type="text"
+      class="search-input"
+      [formControl]="searchControl"
+      placeholder="Ex: Christopher Nolan, Tom Hanks..."
+      (keyup.enter)="onSearch()"
+      aria-label="Nome do Ator ou Diretor"
+    />
+    <app-button 
+      (click)="onSearch()" 
+      aria-label="Pesquisar"
+    >
+      Pesquisar
+    </app-button>
+  </div>
+
+  <div class="results-section">
+    <ng-container *ngIf="(loading$ | async)">
+      <p>Carregando...</p> </ng-container>
+
+    <ng-container *ngIf="filmography$ | async as filmography">
+      <ng-container *ngIf="selectedPersonName$ | async as personName">
+        <app-carousel
+          *ngIf="filmography.length > 0"
+          [title]="'Filmografia de ' + personName"
+          [items]="filmography"
+          (addMovie)="handleAddMovie($event)" 
+        ></app-carousel>
+      </ng-container>
+    </ng-container>
+  </div>
+</div>
