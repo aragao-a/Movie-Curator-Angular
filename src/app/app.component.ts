@@ -1,6 +1,6 @@
 
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component'; 
 
 @Component({
@@ -10,4 +10,13 @@ import { SidebarComponent } from './core/components/sidebar/sidebar.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+
+  private router = inject(Router);
+
+  ngOnInit(): void {
+
+    this.router.navigate(['/movies']);
+  }
+
+}

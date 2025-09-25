@@ -1,34 +1,34 @@
 <div class="marathons-page-container">
-  <h1>Minhas Maratonas</h1>
 
   @if (savedMarathons$ | async; as marathons) {
     @if (marathons.length > 0) {
       <div class="marathons-list">
         @for (marathon of marathons; track marathon.id) {
+
           <div class="marathon-display">
+
             <div class="marathon-header">
+
               <div class="header-content">
-                <h2>{{ marathon.name }}</h2>
-                <p class="marathon-total-duration">
-                  Duração: {{ marathon.totalDuration | duration }}
-                </p>
+                <h2 class="marathon-title">{{ marathon.name }}</h2>
+                <app-button
+                    appearance="fortiary"
+                    class="delete-button"
+                    (click)="deleteMarathon(marathon.id)"
+                >
+                    <img class="trash-button" src="assets/vectors/trash-2.svg" alt="Excluir">
+                </app-button>
               </div>
-              <app-button
-                appearance="fortiary"
-                class="delete-button"
-                (click)="deleteMarathon(marathon.id)"
-              >
-                <img class="trash-button" src="assets/vectors/trash-2.svg" alt="Excluir">
-              </app-button>
             </div>
             <app-carousel
-              [title]="''"
+              [title]="'Duração: ' + (marathon.totalDuration | duration)"
               [items]="mapMoviesToCarouselItems(marathon)"
             ></app-carousel>
           </div>
         }
       </div>
     } @else {
+      <h1 class="marathon-page-header">Minhas Maratonas</h1>
       <p class="empty-message">
         Você ainda não salvou nenhuma maratona.
       </p>

@@ -6,10 +6,12 @@
 
     <div class="listing__actions">
 
+
       <select class="sort-select" (change)="onSortChange($event)">
         <option value="popularity">Mais Populares</option>
         <option value="vote">Melhor Nota</option>
         <option value="release_date">Mais Recentes</option>
+        <!-- <option value="runtime">Duração</option> -->
         <option value="title">Nome (A-Z)</option>
       </select>
 

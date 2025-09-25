@@ -21,13 +21,22 @@
           </div>
         }
       </div>
+
       <div class="total-duration">
-        <span>Duração Total:</span>
-        <strong>{{ (totalDuration$ | async) | duration }}</strong>
+        <h4>Duração Total:</h4>
+        <p>
+          {{ (totalDuration$ | async) | duration }}
+        </p>
       </div>
-      <app-button appearance="primary" (click)="saveDialog.open()" class="save-button">
-        Salvar Maratona
-      </app-button>
+
+      <div class="button-container" >
+
+        <app-button appearance="secondary" (click)="saveDialog.open()" class="save-button">
+          Salvar Maratona
+        </app-button>
+
+      </div>
+
     } @else {
       <p class="empty-message">
         Você ainda não tem filmes para a maratona atual.
@@ -36,4 +45,7 @@
   }
 </div>
 
-<app-save-dialog #saveDialog (save)="handleSaveMarathon($event)"></app-save-dialog>
+  <app-save-dialog #saveDialog 
+    (save)="handleSaveMarathon($event)"
+  >
+  </app-save-dialog>

@@ -79,15 +79,23 @@ p.movie-director {
   justify-content: center;
 }
 
+.button-container {
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .total-duration {
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: 'Manrope', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #fff;
 
   strong {

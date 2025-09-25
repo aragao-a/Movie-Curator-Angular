@@ -18,6 +18,7 @@ export interface CarouselItem {
   genre_ids?: number[];
   release_date?: string;
   popularity?: number;
+  runtime?: number;
 }
 
 @Component({
@@ -57,8 +58,7 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items']) {
-      this.currentFilters = null;
-      this.updateDisplayedItems();
+      this.clearFilter(false);
     }
   }
 
@@ -75,35 +75,16 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
   }
 
   handleFilterApplied(filters: FilterValues) {
-    let filteredItems = [...this.items];
-
-    if (filters.name) {
-      filteredItems = filteredItems.filter(item => 
-        item.title?.toLowerCase().includes(filters.name!.toLowerCase())
-      );
-    }
-    
-    if (filters.genreId) {
-      filteredItems = filteredItems.filter(item => 
-        item.genre_ids?.includes(filters.genreId!)
-      );
-    }
-
-    if (filters.year) {
-      filteredItems = filteredItems.filter(item => 
-        item.release_date?.startsWith(filters.year!.toString())
-      );
-    }
-    
     this.currentFilters = filters;
     this.updateDisplayedItems();
   }
 
-  clearFilter() {
-    
+  clearFilter(fromButton = true) {
     this.currentFilters = null;
+    if(fromButton) {
+      this.filterDialog.clear();
+    }
     this.updateDisplayedItems();
-    this.filterDialog.clear();
   }
 
   onSortChange(event: Event) {
@@ -137,7 +118,10 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
     const key = this.currentSortBy;
 
     itemsToProcess.sort((a, b) => {
-
+      
+      if (key === 'runtime') {
+        return (b.runtime ?? 0) - (a.runtime ?? 0);
+      }
       if (key === 'vote') {
         return (b.vote ?? 0) - (a.vote ?? 0);
       }
@@ -176,4 +160,3 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
     return imgSrc ? `https://image.tmdb.org/t/p/w500${imgSrc}` : '';
   }
 }
-

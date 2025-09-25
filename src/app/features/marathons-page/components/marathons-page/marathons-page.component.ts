@@ -28,7 +28,8 @@ export class MarathonsPageComponent {
       genres: '',
       genre_ids: movie.genre_ids,
       release_date: movie.release_date,
-      popularity: movie.popularity
+      popularity: movie.popularity,
+      runtime: movie.runtime
     }));
   }
 

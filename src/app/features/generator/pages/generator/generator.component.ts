@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { GeneratorFacadeService } from '../../services/generator-facade.service';
@@ -20,12 +20,12 @@ import { MarathonFacadeService } from 'src/app/features/marathon/services/marath
   styleUrls: ['./generator.component.scss']
 })
 export class GeneratorComponent implements OnInit {
-
   private readonly facade = inject(GeneratorFacadeService);
   private readonly movieFacade = inject(MovieFacade);
   private readonly marathonFacade = inject(MarathonFacadeService);
 
   searchControl = new FormControl('');
+  searchExecuted = false;
 
   filmography$ = this.facade.filmography$;
   loading$ = this.facade.loading$;
@@ -37,6 +37,7 @@ export class GeneratorComponent implements OnInit {
 
   onSearch(): void {
     if (this.searchControl.value) {
+      this.searchExecuted = true;
       this.facade.searchPersonAndGetFilmography(this.searchControl.value);
     }
   }
