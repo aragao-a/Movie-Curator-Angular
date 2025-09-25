@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { MovieApiService } from '../api/movie.api';
-import { MovieStateService } from '../state/movie.state';
+import { MovieCategory, MovieStateService } from '../state/movie.state';
 import { catchError, tap, map } from 'rxjs/operators';
-import { of, combineLatest } from 'rxjs';
+import { of, combineLatest, forkJoin } from 'rxjs';
 import { Movie, Genre } from '../types/movie.type';
 import { CarouselItem } from '@shared/components/carousel/carousel.component';
 
@@ -55,7 +55,7 @@ export class MovieFacade {
     });
 
     this.api.getUpcomingMovies().pipe(catchError(() => of({ results: [] }))).subscribe(response => {
-      this.state.setState({ upcomingMovies: response.results, loading: false }); // Desliga o loading no último
+      this.state.setState({ upcomingMovies: response.results, loading: false });
     });
   }
   
@@ -74,6 +74,39 @@ export class MovieFacade {
         return of(null);
       })
     ).subscribe();
+  }
+
+  fetchRuntimesFor(category: MovieCategory) {
+    this.state.setLoading(true);
+    
+    const currentMovies = this.state.getState()[category];
+    const moviesToFetch = currentMovies
+      .filter(movie => !movie.runtime)
+      .slice(0, 10);
+    
+    if (moviesToFetch.length === 0) {
+      this.state.setLoading(false);
+      return;
+    }
+
+    const detailObservables = moviesToFetch.map(movie => this.api.getMovieDetails(movie.id));
+
+    forkJoin(detailObservables).pipe(
+      catchError(() => {
+        this.state.setLoading(false);
+        return of([]);
+      })
+    ).subscribe(details => {
+      const runtimeMap = new Map(details.map(d => [d.id, d.runtime]));
+      
+      const updatedMovies = currentMovies.map(movie => {
+        const runtime = runtimeMap.get(movie.id);
+        return runtime ? { ...movie, runtime } : movie;
+      });
+
+      this.state.setState({ [category]: updatedMovies });
+      this.state.setLoading(false);
+    });
   }
   
   private mapToCarouselItems(movies: Movie[], genres: Genre[]): CarouselItem[] {
@@ -96,7 +129,8 @@ export class MovieFacade {
         genres: movieGenres,
         genre_ids: movie.genre_ids, 
         release_date: movie.release_date,
-        popularity: movie.popularity
+        popularity: movie.popularity,
+        runtime: movie.runtime
       };
     });
   }

@@ -7,18 +7,23 @@
     />
   </div>
 
-  <ng-container *ngIf="searchResults$ | async as searchResults">
-    <div *ngIf="searchResults.length > 0; else carousels" class="movie-grid">
-      <h2>Resultados da Busca</h2>
-      <app-movie-card *ngFor="let movie of searchResults" [movie]="movie"></app-movie-card>
-    </div>
+  @if(facade.isLoading$ | async) {
+    <div class="loading-spinner">Buscando durações, por favor aguarde...</div>
+  }
 
-    <ng-template #carousels>
+  <ng-container *ngIf="searchResults$ | async as searchResults">
+    @if (searchResults.length > 0) {
+      <div class="movie-grid">
+        <h2>Resultados da Busca</h2>
+        <app-movie-card *ngFor="let movie of searchResults" [movie]="movie"></app-movie-card>
+      </div>
+    } @else {
       <app-carousel
         [title]="'Filmes Populares'"
         [items]="(facade.popularMovies$ | async)!"
         [genres]="(genres$ | async)!"
         (addMovie)="handleAddMovie($event)" 
+        (sortByRuntimeRequested)="handleSortByRuntime('popularMovies')"
       ></app-carousel>
       
       <app-carousel
@@ -26,6 +31,7 @@
         [items]="(facade.topRatedMovies$ | async)!"
         [genres]="(genres$ | async)!"
         (addMovie)="handleAddMovie($event)" 
+        (sortByRuntimeRequested)="handleSortByRuntime('topRatedMovies')"
       ></app-carousel>
 
       <app-carousel
@@ -33,7 +39,8 @@
         [items]="(facade.upcomingMovies$ | async)!"
         [genres]="(genres$ | async)!"
         (addMovie)="handleAddMovie($event)" 
+        (sortByRuntimeRequested)="handleSortByRuntime('upcomingMovies')"
       ></app-carousel>
-    </ng-template>
+    }
   </ng-container>
 </div>

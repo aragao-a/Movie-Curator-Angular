@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { Movie, Genre } from '../../types/movie.type';
 import { MarathonFacadeService } from 'src/app/features/marathon/services/marathon-facade.service';
 import { CarouselItem } from '@shared/components/carousel/carousel.component';
+import { MovieCategory } from '../../state/movie.state';
 
 @Component({
   selector: 'app-movie-list',
@@ -35,9 +36,12 @@ export class MovieListComponent implements OnInit {
   handleAddMovie(movie: CarouselItem) {
     this.marathonFacade.addMovie(movie);
   }
+
+  handleSortByRuntime(category: MovieCategory) {
+    this.facade.fetchRuntimesFor(category);
+  }
   
   ngOnInit() {
-
     this.facade.loadGenres(); 
     this.facade.loadInitialCarousels();
 

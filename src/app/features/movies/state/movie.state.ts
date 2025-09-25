@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Movie, Genre } from '../types/movie.type';
 
+export type MovieCategory = 'popularMovies' | 'topRatedMovies' | 'upcomingMovies';
+
 export interface MovieState {
   popularMovies: Movie[];
   topRatedMovies: Movie[];
@@ -12,7 +14,6 @@ export interface MovieState {
   page: number;
   totalPages: number;
   genres: Genre[];
-  _internal?: unknown;
 }
 
 const initialState: MovieState = {
@@ -25,7 +26,6 @@ const initialState: MovieState = {
   page: 1,
   totalPages: 1,
   genres: [],
-  _internal: undefined
 };
 
 @Injectable({

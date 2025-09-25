@@ -38,8 +38,10 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
   @Input() title!: string;
   @Input() items: CarouselItem[] = [];
   @Input() genres: Genre[] = [];
+  @Input() canSortByRuntime = false;
 
   @Output() addMovie = new EventEmitter<CarouselItem>();
+  @Output() sortByRuntimeRequested = new EventEmitter<void>();
 
   @Input() canNavigateLeft = true;
   @Input() canNavigateRight = true;
@@ -58,7 +60,7 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['items']) {
-      this.clearFilter(false);
+      this.updateDisplayedItems();
     }
   }
 
@@ -70,7 +72,9 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
     this.filterDialog.open();
   }
 
-  onAddMovieToMarathon(item: CarouselItem) {
+  onAddMovieToMarathon(item: CarouselItem, event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
     this.addMovie.emit(item);
   }
 
@@ -89,8 +93,15 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   onSortChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
-    this.currentSortBy = selectElement.value as keyof CarouselItem;
-    this.updateDisplayedItems();
+    const value = selectElement.value as keyof CarouselItem;
+
+    this.currentSortBy = value;
+
+    if (value === 'runtime') {
+      this.sortByRuntimeRequested.emit();
+    } else {
+      this.updateDisplayedItems();
+    }
   }
 
   private updateDisplayedItems() {
@@ -115,26 +126,20 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
       }
     }
     
-    const key = this.currentSortBy;
-
     itemsToProcess.sort((a, b) => {
-      
-      if (key === 'runtime') {
-        return (b.runtime ?? 0) - (a.runtime ?? 0);
+      switch (this.currentSortBy) {
+        case 'runtime':
+          return (b.runtime ?? -1) - (a.runtime ?? -1);
+        case 'vote':
+          return (b.vote ?? 0) - (a.vote ?? 0);
+        case 'release_date':
+          return new Date(b.release_date ?? 0).getTime() - new Date(a.release_date ?? 0).getTime();
+        case 'title':
+          return (a.title ?? '').localeCompare(b.title ?? '');
+        case 'popularity':
+        default:
+          return (b.popularity ?? 0) - (a.popularity ?? 0);
       }
-      if (key === 'vote') {
-        return (b.vote ?? 0) - (a.vote ?? 0);
-      }
-      if (key === 'release_date') {
-        const dateA = new Date(a.release_date ?? 0).getTime();
-        const dateB = new Date(b.release_date ?? 0).getTime();
-        return dateB - dateA;
-      }
-      if (key === 'title') {
-        return (a.title ?? '').localeCompare(b.title ?? '');
-      }
-
-      return (b.popularity ?? 0) - (a.popularity ?? 0);
     });
 
     this.displayedItems = itemsToProcess;

@@ -1,4 +1,3 @@
-
 export interface Genre {
   id: number;
   name: string;
@@ -13,6 +12,7 @@ export interface Movie {
   vote_average: number;
   genre_ids: number[];
   popularity: number;
+  runtime?: number;
 }
 
 export interface MovieResponse {

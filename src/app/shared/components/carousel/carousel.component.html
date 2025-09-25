@@ -11,7 +11,7 @@
         <option value="popularity">Mais Populares</option>
         <option value="vote">Melhor Nota</option>
         <option value="release_date">Mais Recentes</option>
-        <!-- <option value="runtime">Duração</option> -->
+        <option value="runtime">Duração</option>
         <option value="title">Nome (A-Z)</option>
       </select>
 
@@ -71,7 +71,7 @@
 
                   <app-button
                     appearance="secondary"
-                    (click)="onAddMovieToMarathon(item)"
+                    (click)="onAddMovieToMarathon(item, $event)"
                     class="add-to-marathon-btn"
                   >
                     <img class="plus-icon" src="assets/vectors/circle-plus.svg" alt="Adicionar à Maratona">
