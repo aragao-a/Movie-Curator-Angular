@@ -24,7 +24,8 @@ https://youtu.be/NjBw1W1nAlE?si=LzSUGDqcj0KeBKCf
 ### Arquitetura Facade
 
 * Utilizei o padrão **Facade** para criar uma separação clara entre a lógica de negócio e os componentes visuais
-* A lógica fica centralizada em serviços como o `GeneratorFacadeService` (`src/app/features/movies/services/movie.facade.ts`)
+* A lógica fica centralizada em serviços como o `GeneratorFacadeService` (`src/app/features/generator/services/generator.facade.ts`)
 * Os componentes se tornam mais simples, focados apenas na interface
 * Código se torna bem mais facil e organizado pra testar
+* Isso se aplica com State, Type e Service pra cada um das fatures maiores (Generator, Marathon_Page, Marathon-List...)
 
