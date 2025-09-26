@@ -1,5 +1,5 @@
 
-# Instruções pra a API:
+# Instruções IMPORTANTES pra rodar com a API do TMDB:
 
 1.  Na pasta `src/environments/`, renomear o arquivo `renomear.ts` para `env-pra-uso.ts`
 2.  Abrir ele e trocar `Chave-TMDB-aqui` pela chave de API pessoal
