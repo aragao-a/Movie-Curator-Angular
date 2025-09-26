@@ -1,0 +1,14 @@
+<app-base-dialog [size]="'small'" [cardTitle]="movieForCard?.title || ''">
+  
+  @if (movieForCard) {
+    <ng-container card-body>
+      <div class="synopsis-card-wrapper">
+        <app-movie-card 
+          [movie]="movieForCard"
+          (addMovie)="onAddMovieFromCard($event)"
+        ></app-movie-card>
+      </div>
+    </ng-container>
+  }
+
+</app-base-dialog>

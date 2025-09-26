@@ -11,24 +11,30 @@ import { CommonModule } from '@angular/common';
 })
 export class BaseDialogComponent {
   @Input() cardTitle: string = '';
+  @Input() size: 'default' | 'small' = 'default';
   @Output() closeDialog = new EventEmitter<void>();
 
   private cdr = inject(ChangeDetectorRef);
 
   isVisible = false;
+  panelClass = '';
 
-  open() {
+  public open(config?: { panelClass: string }): void {
+    if (config?.panelClass) {
+      this.panelClass = config.panelClass;
+    }
     this.isVisible = true;
     this.cdr.markForCheck();
   }
 
-  close() {
+  public close(): void {
     this.isVisible = false;
+    this.panelClass = ''; 
     this.closeDialog.emit();
     this.cdr.markForCheck();
   }
 
-  onDialogClick(event: MouseEvent) {
+  onDialogClick(event: MouseEvent): void {
     event.stopPropagation();
   }
 }

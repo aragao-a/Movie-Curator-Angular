@@ -20,6 +20,11 @@ h2 {
 
 }
 
+.synopsis-dialog-panel .card {
+  width: auto !important;
+  max-width: 350px !important;
+}
+
 :root {
 
   --cinelog-o0: #ff6b6b;

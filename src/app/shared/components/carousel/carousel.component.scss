@@ -101,7 +101,7 @@
     color: inherit;
     transition: transform 0.3s;
     position: relative;
-
+    cursor: pointer;
     &:hover {
       transform: scale(1.05);
       z-index: 20;

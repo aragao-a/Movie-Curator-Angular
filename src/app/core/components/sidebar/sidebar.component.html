@@ -5,7 +5,11 @@
   </div>
 
   <nav class="app-nav">
-    <a routerLink="/movies" routerLinkActive="active" class="nav-link">
+    <a routerLink="/movies" 
+      routerLinkActive="active" 
+      class="nav-link"
+      (click)="resetMovieSearchState()"
+    >
       Filmes
     </a>
     <a routerLink="/generator" routerLinkActive="active" class="nav-link">

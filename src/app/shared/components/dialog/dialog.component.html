@@ -1,9 +1,11 @@
-
 @if (isVisible) {
 
   <div class="dialog-container" (click)="close()">
 
-    <div class="dialog-card" (click)="onDialogClick($event)">
+    <div 
+      class="dialog-card" 
+      [ngClass]="[panelClass, 'dialog-card--' + size]" 
+      (click)="onDialogClick($event)">
       <div class="card-structure">
 
         @if (cardTitle) {

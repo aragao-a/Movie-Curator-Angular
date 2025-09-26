@@ -76,6 +76,11 @@ export class MovieFacade {
     ).subscribe();
   }
 
+  public clearSearchResults(): void {
+    
+    this.state.setState({ searchResults: [] });
+  }
+
   fetchRuntimesFor(category: MovieCategory) {
     this.state.setLoading(true);
     
@@ -130,7 +135,8 @@ export class MovieFacade {
         genre_ids: movie.genre_ids, 
         release_date: movie.release_date,
         popularity: movie.popularity,
-        runtime: movie.runtime
+        runtime: movie.runtime,
+        overview: movie.overview
       };
     });
   }

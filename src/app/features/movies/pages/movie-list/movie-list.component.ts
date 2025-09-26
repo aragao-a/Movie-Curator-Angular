@@ -33,8 +33,26 @@ export class MovieListComponent implements OnInit {
 
   genres$: Observable<Genre[]> = this.facade.state.movies$.pipe(map(state => state.genres));
   
-  handleAddMovie(movie: CarouselItem) {
-    this.marathonFacade.addMovie(movie);
+  handleAddMovie(movie: Movie | CarouselItem) {
+    let itemToAdd: CarouselItem;
+
+    if ('link' in movie) {
+      itemToAdd = movie;
+    } else {
+      
+      itemToAdd = {
+        id: movie.id,
+        title: movie.title,
+        imgSrc: movie.poster_path, 
+        link: `/movies/${movie.id}`,
+        vote: movie.vote_average,
+        genre_ids: movie.genre_ids,
+        release_date: movie.release_date,
+        popularity: movie.popularity
+      };
+    }
+    
+    this.marathonFacade.addMovie(itemToAdd);
   }
 
   handleSortByRuntime(category: MovieCategory) {

@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { Genre } from 'src/app/features/movies/types/movie.type';
 import { FilterDialogComponent, FilterValues } from 'src/app/features/movies/components/filter-dialog/filter-dialog.component';
 import { ButtonComponent } from '../button/button.component';
+import { SynopsisDialogComponent } from 'src/app/features/movies/components/synopsis-dialog/synopsis-dialog.component';
 
 export interface CarouselItem {
   id: number;
@@ -19,6 +20,7 @@ export interface CarouselItem {
   release_date?: string;
   popularity?: number;
   runtime?: number;
+  overview?: string;
 }
 
 @Component({
@@ -30,7 +32,8 @@ export interface CarouselItem {
     CommonModule, 
     RouterModule, 
     FilterDialogComponent,
-    ButtonComponent
+    ButtonComponent,
+    SynopsisDialogComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -50,6 +53,7 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
   
   @ViewChild(FilterDialogComponent) filterDialog!: FilterDialogComponent;
   @ViewChild('carouselContainer') carouselContainer!: ElementRef<HTMLElement>;
+  @ViewChild(SynopsisDialogComponent) synopsisDialog!: SynopsisDialogComponent;
 
   private cdr = inject(ChangeDetectorRef);
 
@@ -70,6 +74,15 @@ export class CarouselComponent implements AfterViewInit, OnChanges {
 
   openFilterDialog() {
     this.filterDialog.open();
+  }
+
+  openSynopsisDialog(item: CarouselItem) {
+
+    this.synopsisDialog.show(item);
+  }
+
+  handleAddMovieFromSynopsis(item: CarouselItem) {
+    this.addMovie.emit(item);
   }
 
   onAddMovieToMarathon(item: CarouselItem, event: MouseEvent) {

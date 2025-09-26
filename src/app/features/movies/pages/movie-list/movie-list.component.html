@@ -13,9 +13,14 @@
 
   <ng-container *ngIf="searchResults$ | async as searchResults">
     @if (searchResults.length > 0) {
+      <h2>Resultados da Busca:</h2>
       <div class="movie-grid">
-        <h2>Resultados da Busca</h2>
-        <app-movie-card *ngFor="let movie of searchResults" [movie]="movie"></app-movie-card>
+        <app-movie-card 
+        *ngFor="let movie of searchResults" 
+        [movie]="movie"
+        (addMovie)="handleAddMovie($event)"
+      >
+      </app-movie-card>
       </div>
     } @else {
       <app-carousel

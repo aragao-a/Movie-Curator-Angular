@@ -1,13 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core'; 
 import { Movie } from '../../types/movie.type';
 import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '@shared/components/button/button.component';
 
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, ButtonComponent]
 })
 export class MovieCardComponent {
   @Input() movie!: Movie;

@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MarathonListComponent } from 'src/app/features/marathon/components/marathon-list/marathon-list.component';
+import { MovieFacade } from 'src/app/features/movies/services/movie.facade';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,5 +11,11 @@ import { MarathonListComponent } from 'src/app/features/marathon/components/mara
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+
+  private movieFacade = inject(MovieFacade);
+
+  resetMovieSearchState(): void {
+    this.movieFacade.clearSearchResults();
+  }
   title = 'CineLog';
 }
